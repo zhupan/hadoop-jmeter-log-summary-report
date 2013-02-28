@@ -1,7 +1,5 @@
 package com.github.zhupan;
 
-import java.lang.Double;
-
 /**
  * @author PanosZhu
  */
