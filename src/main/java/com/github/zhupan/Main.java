@@ -7,6 +7,8 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
+import java.util.Date;
+
 /**
  * @author PanosZhu
  */
@@ -14,9 +16,9 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         if (args.length != 2) {
-            args = new String[]{"/Users/zhupan/github/hadoop-jmeter-log-summary-report/input", "/Users/zhupan/github/hadoop-jmeter-log-summary-report/output"};
-//            System.err.println("Usage: hadoopex <input path> <output path>");
-//            System.exit(-1);
+//            args = new String[]{"/Users/zhupan/github/hadoop-jmeter-log-summary-report/input", "/Users/zhupan/github/hadoop-jmeter-log-summary-report/output/" + new Date().getTime()};
+            System.err.println("Usage: <input path> <output path>");
+            System.exit(-1);
         }
 
         Job job = new Job();

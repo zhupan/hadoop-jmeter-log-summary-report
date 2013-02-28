@@ -40,8 +40,12 @@ public class LogInfo implements Serializable {
     }
 
     public static LogInfo of(Text text) {
-        String[] values = text.toString().split(SEPARATOR);
-        return new LogInfo(Long.valueOf(values[0]), Long.valueOf(values[1]), values[2]);
+        try {
+            String[] values = text.toString().split(SEPARATOR);
+            return new LogInfo(Long.valueOf(values[0]), Long.valueOf(values[1]), values[2]);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public boolean hasError() {

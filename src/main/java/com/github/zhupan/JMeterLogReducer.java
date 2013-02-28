@@ -6,6 +6,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.hadoop.io.Text;
@@ -24,6 +25,9 @@ public class JMeterLogReducer extends Reducer<Text, Text, Text, Text> {
         List<Long> list = new ArrayList<Long>();
         for (Text text : values) {
             LogInfo log = LogInfo.of(text);
+            if (log == null) {
+                continue;
+            }
             minTime = Math.min(minTime, log.getTime());
             maxTime = Math.max(maxTime, log.getTime());
             list.add(log.getElapsedTime());
@@ -42,6 +46,8 @@ public class JMeterLogReducer extends Reducer<Text, Text, Text, Text> {
         context.write(new Text("Max Value"), new Text(sortDoubles[samples - 1].toString()));
         context.write(new Text("Error%"), new Text(BigDecimal.valueOf(errorCount * 1.0 / samples * 100).setScale(3, BigDecimal.ROUND_HALF_UP) + "%"));
         context.write(new Text("Throughput(TPS)"), new Text(String.valueOf(samples / ((maxTime - minTime) / 1000))));
+        context.write(new Text("Start Time"), new Text(new Date(minTime).toString()));
+        context.write(new Text("End Time"), new Text(new Date(maxTime).toString()));
     }
 
 }
