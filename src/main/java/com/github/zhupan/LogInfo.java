@@ -13,11 +13,11 @@ public class LogInfo implements Serializable {
 
     private long time;
 
-    private long elapsedTime;
+    private int elapsedTime;
 
     private String resultCode;
 
-    public LogInfo(long time, long elapsedTime, String resultCode) {
+    public LogInfo(long time, int elapsedTime, String resultCode) {
         this.time = time;
         this.elapsedTime = elapsedTime;
         this.resultCode = resultCode;
@@ -27,7 +27,7 @@ public class LogInfo implements Serializable {
         return time;
     }
 
-    public long getElapsedTime() {
+    public int getElapsedTime() {
         return elapsedTime;
     }
 
@@ -42,7 +42,7 @@ public class LogInfo implements Serializable {
     public static LogInfo of(Text text) {
         try {
             String[] values = text.toString().split(SEPARATOR);
-            return new LogInfo(Long.valueOf(values[0]), Long.valueOf(values[1]), values[2]);
+            return new LogInfo(Long.valueOf(values[0]), Integer.valueOf(values[1]), values[2]);
         } catch (Exception e) {
             return null;
         }

@@ -22,7 +22,7 @@ public class JMeterLogReducer extends Reducer<Text, Text, Text, Text> {
         Long errorCount = 0L;
         Long minTime = Long.MAX_VALUE;
         Long maxTime = Long.MIN_VALUE;
-        List<Long> list = new ArrayList<Long>();
+        List<Integer> list = new ArrayList<Integer>();
         for (Text text : values) {
             LogInfo log = LogInfo.of(text);
             if (log == null) {
@@ -36,14 +36,14 @@ public class JMeterLogReducer extends Reducer<Text, Text, Text, Text> {
                 errorCount += 1;
             }
         }
-        Long[] sortDoubles = SortUtils.sort(list.toArray(new Long[]{}));
-        Integer samples = sortDoubles.length;
+        Integer[] sortedValues = SortUtils.sort(list.toArray(new Integer[]{}));
+        Integer samples = sortedValues.length;
         context.write(new Text(key.toString() + " Total Samples"), new Text(samples.toString()));
         context.write(new Text("Average Value"), new Text(String.valueOf(totalValue / samples)));
-        context.write(new Text("Median Value"), new Text(String.valueOf(sortDoubles[samples / 2])));
-        context.write(new Text("90% Line Value"), new Text(sortDoubles[Double.valueOf(samples * 0.9).intValue()].toString()));
-        context.write(new Text("Min Value"), new Text(sortDoubles[0].toString()));
-        context.write(new Text("Max Value"), new Text(sortDoubles[samples - 1].toString()));
+        context.write(new Text("Median Value"), new Text(String.valueOf(sortedValues[samples / 2])));
+        context.write(new Text("90% Line Value"), new Text(sortedValues[Double.valueOf(samples * 0.9).intValue()].toString()));
+        context.write(new Text("Min Value"), new Text(sortedValues[0].toString()));
+        context.write(new Text("Max Value"), new Text(sortedValues[samples - 1].toString()));
         context.write(new Text("Error%"), new Text(BigDecimal.valueOf(errorCount * 1.0 / samples * 100).setScale(3, BigDecimal.ROUND_HALF_UP) + "%"));
         context.write(new Text("Throughput(TPS)"), new Text(String.valueOf(samples / ((maxTime - minTime) / 1000))));
         context.write(new Text("Start Time"), new Text(new Date(minTime).toString()));

@@ -5,9 +5,9 @@ package com.github.zhupan;
  */
 public abstract class SortUtils {
 
-    public static Long[] sort(Long[] array) {
+    public static Integer[] sort(Integer[] array) {
         for (int i = 1; i < array.length; i++) {
-            Long key = array[i];
+            Integer key = array[i];
             int j = i - 1;
             while (j >= 0 && array[j] > key) {
                 array[j + 1] = array[j];
