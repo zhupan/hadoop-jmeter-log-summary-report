@@ -26,7 +26,7 @@ public class Main {
         job.setJobName("JMeter Log Summary Report");
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
-        FileOutputFormat.setOutputPath(job, new Path(args[1]));
+        FileOutputFormat.setOutputPath(job, new Path(getOutputPath(args[1])));
 
         job.setMapperClass(JMeterLogMapper.class);
         job.setReducerClass(JMeterLogReducer.class);
@@ -35,5 +35,13 @@ public class Main {
         job.setOutputValueClass(Text.class);
 
         System.exit(job.waitForCompletion(true) ? 0 : 1);
+    }
+
+    private static String getOutputPath(String path) {
+        long time = new Date().getTime();
+        if (path.endsWith("/")) {
+            return path + time;
+        }
+        return path + "/" + time;
     }
 }
