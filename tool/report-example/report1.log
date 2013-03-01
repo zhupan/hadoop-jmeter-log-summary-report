@@ -1,0 +1,22 @@
+Avail228 Total Samples	10000
+Average Value	911
+Median Value	900
+90% Line Value	939
+Min Value	832
+Max Value	7723
+Error%	0.120%
+Throughput(TPS)	53
+Start Time	Fri Mar 01 13:28:24 CST 2013
+End Time	Fri Mar 01 13:31:32 CST 2013
+
+
+Avail76 Total Samples	10000
+Average Value	816
+Median Value	644
+90% Line Value	1502
+Min Value	558
+Max Value	1733
+Error%	20.800%
+Throughput(TPS)	58
+Start Time	Fri Mar 01 13:24:41 CST 2013
+End Time	Fri Mar 01 13:27:32 CST 2013
